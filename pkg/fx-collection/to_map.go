@@ -65,3 +65,12 @@ func PrepareToMap[K comparable, V any](keySelector func(V) K) func([]V) (map[K]V
 		return ToMap(input, keySelector)
 	}
 }
+
+// PrepareToMapX returns a function that can be used to convert a slice to a map
+// using the specified key selector function.
+// If duplicate keys are found, it returns an error.
+func PrepareToMapX[K comparable, V any](keySelector func(V) K) func([]V) fxtypes.Result[map[K]V] {
+	return func(input []V) fxtypes.Result[map[K]V] {
+		return ToMapX(input, keySelector)
+	}
+}
